@@ -132,26 +132,21 @@
 
             json.sourceFile = options.URLS[i]; // important!
 
-                //  "json._id" must included in json.
+            outfit[json.name] = await loadSkinnedMesh(json);
 
-            outfit[json._id] = await loadSkinnedMesh(json);
-
-
-            var object = outfit.toJSON(json._id); // important!
+            var object = outfit.toJSON(json.name); // important!
 
 
-            var result = await collection.findOne({_id:json._id}, function(err){
+            var result = await collection.findOne({_id:json.name}, function(err){
                 if (err) throw err;
             }).then(async function(result){ 
                 return result; 
             });
 
             if (result) {
-
-                //  debugMode && console.log({"found":result._id});
                 
-                var selector = {_id:json._id};
-                var modifier = {$set:object[json._id]};
+                var selector = {_id:json.name};
+                var modifier = {$set:object[json.name]};
 
                 await collection.update(selector, modifier, function(err){
                     if (err) throw err;
@@ -159,17 +154,17 @@
                     console.error(err);
                 });
 
-                debugMode && console.log({"updated":json._id});
+                debugMode && console.log({"updated":json.name});
 
             } else {
 
-                await collection.insert(object[json._id], function(err){
+                await collection.insert(object[json.name], function(err){
                     if (err) throw err;
                 }).catch(function(err){
                     console.error(err);
                 });
 
-                debugMode && console.log({"inderted":json._id});
+                debugMode && console.log({"inderted":json.name});
 
             }
 
