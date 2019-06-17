@@ -1,6 +1,6 @@
 //  demo-sw.js
 
-    self.version = 2.0;
+    self.version = 1.6;
 
     var debugMode = true;
 
