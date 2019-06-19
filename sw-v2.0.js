@@ -1,3 +1,5 @@
+//  sw-v2.0.js
+
     self.version = 2.0;
     var debugMode = true;
 
@@ -5,7 +7,6 @@
         "/js/Objectid.js",
         "/js/zangodb.min.js",
     );
-
 
     async function installDB(url){
 
@@ -30,11 +31,11 @@
 
         debugMode && console.log({"options":options});
 
-        var db = new zango.Db( "DEMO", options);
+        var db = new zango.Db( "AW3D", options);
         await db.open(function(err, database){
             if (err) console.error(err);
         }).then( function(){
-            debugMode && console.log(`Database ${db.name} (v${db.version}) ready for use.`);
+            debugMode && console.log(`Database ${db.name} (v${db.version}) is ready.`);
         }).catch(function(err){
             console.error(err);
         });
@@ -50,7 +51,7 @@
 
         }
 
-        return collections;
+        return;
 
     }
 
