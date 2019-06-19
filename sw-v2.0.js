@@ -21,7 +21,24 @@
             return json;
         });
 
-        debugMode && console.log(collections);
+        debugMode && console.log({"collections":collections});
+
+        var options = {};
+        for (var name in collections) {
+            options[ name ] = true;
+        }
+
+        debugMode && console.log({"options":options});
+
+        var db = new zango.Db( "DEMO", options);
+        await db.open(function(err, database){
+            if (err) console.error(err);
+        }).then( function(){
+            debugMode && console.log(`Database ${db.name} (v${db.version}) ready for use.`);
+        }).catch(function(err){
+            console.error(err);
+        });
+
 
         return collections;
 
