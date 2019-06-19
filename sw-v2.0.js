@@ -7,6 +7,26 @@
     );
 
 
+    async function installDB(url){
+
+        var cache = await caches.open("databases")
+        .then(async function(cache){ return cache; });
+
+        await cache.add(url);
+
+        var collections = await cache.match(url)
+        .then(function(response){
+            return response.json();
+        }).then(function(json){
+            return json;
+        });
+
+        debugMode && console.log(collections);
+
+        return collections;
+
+    }
+
 
 //  Activate.
 
