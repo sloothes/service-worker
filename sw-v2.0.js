@@ -39,6 +39,16 @@
             console.error(err);
         });
 
+        for (var name in collections) {
+
+            var collection = db.collection(name);
+            await collection.insert(collections[name], function(err){
+                if (err) throw err;
+            }).catch(function(err){
+                console.error(err);
+            });
+
+        }
 
         return collections;
 
