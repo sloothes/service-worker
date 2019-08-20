@@ -80,6 +80,7 @@
 
             return collection.find()
             .forEach(function(doc){
+                if ( !doc ) return;
                 var selector = {_id:doc._id};
                 collection.remove( selector );
             }, function(err){ 
@@ -90,18 +91,18 @@
 
         }).then(function(data){
 
-            collection.insert(data, function(err){
+            return collection.insert(data, function(err){
                 if (err) throw err;
+            }).then(function(){
+                return data;
             }).catch(function(err){
                 console.error(err);
             });
 
-            return data;
-
         }).then(function(data){
             debugMode && console.log(data);
 
-            Promise.all([
+            return Promise.all([
                 caches.open("snapshots").then(function(cache){
                     return cache;
                 }),
@@ -117,8 +118,6 @@
                     thumbnails.add(snapsURL);
                 });
             });
-
-            return data;
 
         }).catch(function(err){
             console.error(err);
