@@ -33,7 +33,7 @@
     self.addEventListener("install", function(e){
         debugMode && console.log("service worker installed.");
 
-        activate();
+        install().then(activate);
 
     });
 
@@ -43,6 +43,48 @@
         clientClaim();
 
     });
+
+    var PUBLIC = new zango.Db( "PUBLIC", {
+        "avatars": true,
+    });
+
+    function install(){
+
+        return PUBLIC.open(function(err, db){
+            if (err) console.error(err);
+        }).then( function(db){
+            debugMode && console.log(
+                `Database ${db.name} (v${db.version}) ready for install.`);
+        }).catch(function(err){
+            console.error(err); throw err;
+        }).then(function(){
+
+            return new Promise(resolve, reject){
+                socket.emit("mongo find", {
+                    collection:"onsite-avatars",
+                    selectors: {"kind":"outfits"},
+                }, function(err, data){
+                    if (err) console.error(err);
+                    resolve(data);
+                });
+            });
+
+        }).then(function(data){
+            debugMode && console.log(data);
+
+            var collection = PUBLIC.collection("avatars");
+            return collection.insert(data, function(err){
+                if (err) throw err;
+            }).then(function(results){
+                debugMode && console.log(results);
+            }).catch(function(err){
+                console.error(err);
+            });
+
+        }).catch(function(err){
+            console.error(err);
+        });
+    }
 
     function activate(){
         debugMode && console.log("activating...");
