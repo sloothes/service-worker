@@ -4,10 +4,10 @@
     var debugMode = true;
 
     self.importScripts(
-        "/socketcluster.js",
-        "/sc-codec-min-bin.js",
         "/js/Objectid.js",
         "/js/zangodb.min.js",
+        "/socketcluster.js",
+        "/sc-codec-min-bin.js",
     );
 
     var socket = socketCluster.create({
