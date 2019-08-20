@@ -101,8 +101,8 @@
 
                 data.forEach(function(doc){
                     if (!doc || !doc.preview) return;
-                    var snapsURL = `https://i.imgur.com/{doc.preview}.jpg`;
-                    var thumbURL = `https://i.imgur.com/{doc.preview}s.jpg`;
+                    var snapsURL = `https://i.imgur.com/${doc.preview}.jpg`;
+                    var thumbURL = `https://i.imgur.com/${doc.preview}s.jpg`;
                     snapshots.add(snapsURL);
                     thumbnails.add(snapsURL);
                 });
