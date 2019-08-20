@@ -76,11 +76,22 @@
             });
 
         }).then(function(data){
+            if ( !data ) throw "Null data returned!";
+
+            return collection.find()
+            .forEach(function(doc){
+                var selector = {_id:doc._id};
+                collection.remove( selector );
+            }, function(err){ 
+                throw err; 
+            }).then(function(){
+                return data;
+            });
+
+        }).then(function(data){
 
             collection.insert(data, function(err){
                 if (err) throw err;
-            }).then(function(results){
-                debugMode && console.log(results);
             }).catch(function(err){
                 console.error(err);
             });
@@ -98,7 +109,6 @@
                     return cache;
                 }),
             ]).then(function([snapshots, thumbnails]){
-
                 data.forEach(function(doc){
                     if (!doc || !doc.preview) return;
                     var snapsURL = `https://i.imgur.com/${doc.preview}.jpg`;
@@ -124,3 +134,4 @@
         debugMode && console.log("claiming...");
         self.clients.claim();
     }
+
