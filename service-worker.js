@@ -65,7 +65,7 @@
             return db;
         }).then(function(db){
 
-            return new Promise(resolve, reject){
+            return new Promise(function(resolve, reject){
                 socket.emit("mongo find", {
                     collection:"onsite-avatars",
                     selectors: {"kind":"outfits"},
