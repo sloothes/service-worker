@@ -33,7 +33,11 @@
     self.addEventListener("install", function(e){
         debugMode && console.log("service worker installed.");
 
-        install().then(activate);
+        Promise.all([
+
+            installAvatars(),
+
+        ]).then(activate);
 
     });
 
@@ -48,16 +52,18 @@
         "avatars": true,
     });
 
-    function install(){
+    function installAvatars(){
 
-        return PUBLIC.open(function(err, db){
+        var DB = PUBLIC;
+        var collection = DB.collection("avatars");
+
+        return DB.open(function(err, db){
             if (err) console.error(err);
         }).then( function(db){
             debugMode && console.log(
                 `Database ${db.name} (v${db.version}) ready for install.`);
-        }).catch(function(err){
-            console.error(err); throw err;
-        }).then(function(){
+            return db;
+        }).then(function(db){
 
             return new Promise(resolve, reject){
                 socket.emit("mongo find", {
@@ -70,16 +76,38 @@
             });
 
         }).then(function(data){
-            debugMode && console.log(data);
 
-            var collection = PUBLIC.collection("avatars");
-            return collection.insert(data, function(err){
+            collection.insert(data, function(err){
                 if (err) throw err;
             }).then(function(results){
                 debugMode && console.log(results);
             }).catch(function(err){
                 console.error(err);
             });
+
+            return data;
+
+        }).then(function(data){
+            debugMode && console.log(data);
+
+            Promise.all([
+                caches.open("snapshots").then(function(cache){
+                    return cache;
+                }),
+                caches.open("thumbnails").then(function(cache){
+                    return cache;
+                }),
+            ]).then(function(snapshots, thumbnails){
+                data.forEach(function(doc){
+                    if (!doc || !doc.preview) return;
+                    var snapsURL = `https://i.imgur.com/{doc.preview}.jpg`;
+                    var thumbURL = `https://i.imgur.com/{doc.preview}s.jpg`;
+                    snapshots.add(snapsURL);
+                    thumbnails.add(snapsURL);
+                });
+            });
+
+            return data;
 
         }).catch(function(err){
             console.error(err);
