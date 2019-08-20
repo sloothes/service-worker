@@ -19,19 +19,21 @@
     }
 
     serviceWorkerRegistration( serviceWorker, {
-        url: "/service_worker/sw-v2.0.js",
-        scope: {scope: "/service_worker/"},     
+        url: "/service-worker/service-worker.js",
+        scope: {scope: "/service-worker/"},     
     });
 
 
     function serviceWorkerRegistration( serviceWorker, options ){
 
         if ( !serviceWorker ) { 
-            console.log(`Oh no! Your browser doesn't support a feature needed to run this app (navigator.serviceWorker). Try using a different browser.`); return; 
+            console.log(
+                `Oh no! Your browser doesn't support a feature needed `
+                + `to run this app (navigator.serviceWorker). `
+                + `Try using a different browser.`); return; 
         }
 
         serviceWorker.register(options.url, options.scope).then(function (reg) {
-
 
             registration = reg;
             debugMode && console.log({"registration": reg});
