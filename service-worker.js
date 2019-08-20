@@ -84,7 +84,9 @@
                 var selector = {_id:doc._id};
                 collection.remove( selector );
             }, function(err){ 
-                throw err; 
+                if (err) throw err; 
+            }).catch(function(err){
+                console.error(err);
             }).then(function(){
                 return data;
             });
