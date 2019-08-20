@@ -15,10 +15,8 @@
         codecEngine: scCodecMinBin,
     });
 
-    var socket = socketCluster.create({
-        hostname: "anywhere3d.com",
-        codecEngine: scCodecMinBin,
-    });
+//  IMPORTANT: service worker socket "authState" always is
+//  "unauthenticated" as dont have access to localStorage.
 
     socket.on("connect", function(status){
         debugMode && console.log("[service-worker]:", {"status": status});
@@ -42,7 +40,7 @@
     self.addEventListener("activate", function(e){
         debugMode && console.log("service worker activated.");
 
-        clientsClaim();
+        clientClaim();
 
     });
 
@@ -51,7 +49,7 @@
         self.skipWaiting();
     }
 
-    function clientsClaim(){
+    function clientClaim(){
         debugMode && console.log("claiming...");
         self.clients.claim();
     }
