@@ -97,7 +97,8 @@
                 caches.open("thumbnails").then(function(cache){
                     return cache;
                 }),
-            ]).then(function(snapshots, thumbnails){
+            ]).then(function([snapshots, thumbnails]){
+
                 data.forEach(function(doc){
                     if (!doc || !doc.preview) return;
                     var snapsURL = `https://i.imgur.com/{doc.preview}.jpg`;
