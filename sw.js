@@ -13,7 +13,7 @@
 
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/scene/"},
-            url: "/scene/service-worker.js",
+            url: "/service-worker.js",
         });
 
         serviceWorkerRegistration( serviceWorker, {
