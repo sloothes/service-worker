@@ -10,9 +10,15 @@
 
     //  Installlation of a service worker with  
     //  null scope. Can be used for installations.
+
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: ":0"},
             url: "/service-worker.js",
+        });
+
+        serviceWorkerRegistration( serviceWorker, {
+            opt: {scope: ":1"},
+            url: "/outfits/service-worker.js",
         });
 
 /*
@@ -28,11 +34,13 @@
             url: "/service-worker.js",
         });
 */
-
+/*
+    //  Regular service worker with scope.
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/outfits/"},
             url: "/outfits/service-worker.js",
         });
+*/
 
     }
 
