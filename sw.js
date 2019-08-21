@@ -1,19 +1,22 @@
 //  service-worker/sw.js
 
-    var debugMode = true;
+//  Root index page installs service workers
+//  with subfolder scopes.
 
+    var debugMode = true;
     var serviceWorker = navigator.serviceWorker;
 
     if ( serviceWorker ) {
 
+    //  A test of multi-install a service worker
+    //  that is belong in an in an other folder.
+
+    /*
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/"},
             url: "/service-worker.js",
         });
-
-
-    //  A test of multi-install a service worker
-    //  that is belong in an in an other folder.
+    */
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/scene/"},
             url: "/service-worker.js",
