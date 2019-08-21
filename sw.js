@@ -9,7 +9,7 @@
     if ( serviceWorker ) {
 
     //  Installlation of a service worker with  
-    //  dummy scope. Can be used for installations.
+    //  null scope. Can be used for installations.
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: ":0"},
             url: "/service-worker.js",
