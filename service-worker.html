@@ -20,17 +20,17 @@
 
     serviceWorkerRegistration( serviceWorker, {
         url: "/service-worker/service-worker.js",
-        scope: {scope: "/service-worker/"},     
+        scope: {scope: "/service-worker/"},
     });
 
 
     function serviceWorkerRegistration( serviceWorker, options ){
 
-        if ( !serviceWorker ) { 
+        if ( !serviceWorker ) {
             console.log(
-                `Oh no! Your browser doesn't support a feature needed `
-                + `to run this app (navigator.serviceWorker). `
-                + `Try using a different browser.`); return; 
+                "Oh no! Your browser doesn't support a feature needed "
+                + "to run this app (navigator.serviceWorker). "
+                + "Try using a different browser."); return;
         }
 
         serviceWorker.register(options.url, options.scope).then(function (reg) {
@@ -65,7 +65,7 @@
 
             });
 
-        }).catch(function(err) { 
+        }).catch(function(err) {
             console.error(err);
         });
 
