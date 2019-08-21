@@ -6,9 +6,14 @@
 
     if ( serviceWorker ) {
 
+    //  serviceWorkerRegistration( serviceWorker, {
+    //      opt: {scope: "/"},
+    //      url: "/service-worker.js",
+    //  });
+
         serviceWorkerRegistration( serviceWorker, {
-            opt: {scope: "/"},
-            url: "/service-worker.js",
+            opt: {scope: "/scene/"},
+            url: "/scene/service-worker.js",
         });
 
         serviceWorkerRegistration( serviceWorker, {
