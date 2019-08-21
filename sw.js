@@ -8,20 +8,26 @@
 
     if ( serviceWorker ) {
 
+    /*
     //  A test of multi-install a service worker
     //  that is belong in an in an other folder.
-
-    /*
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/"},
             url: "/service-worker.js",
         });
-    */
+
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/scene/"},
             url: "/service-worker.js",
         });
+    */
 
+    //  A test of installing a service worker 
+    //  without scope.
+        serviceWorkerRegistration( serviceWorker, {
+            opt: {scope: "//:0"},
+            url: "/service-worker.js",
+        });
 
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/outfits/"},
