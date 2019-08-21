@@ -17,7 +17,7 @@
         });
 
         serviceWorkerRegistration( serviceWorker, {
-            opt: {scope: ":1"},
+            opt: {scope: "/outfits/:1"},
             url: "/outfits/service-worker.js",
         });
 
