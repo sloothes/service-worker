@@ -25,7 +25,7 @@
     //  A test of installing a service worker 
     //  without scope.
         serviceWorkerRegistration( serviceWorker, {
-            opt: {scope: "//:0"},
+            opt: {scope: ":0"},
             url: "/service-worker.js",
         });
 
