@@ -72,10 +72,12 @@
                 });
             });
 
+    /*
         //  Refresh to activate the worker.
-        //  if (!reg.active) {
-        //      location.reload(); return;
-        //  } 
+            if (!reg.active) {
+                location.reload(); return;
+            } 
+    */
 
         }).catch(function(err) { 
             console.error(err);
