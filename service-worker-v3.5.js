@@ -61,7 +61,7 @@
             if (err) console.error(err);
         }).then( function(db){
             debugMode && console.log(
-                `Database ${db.name} (v${db.version}) ready for install.`);
+                "Database ${db.name} (v" + db.version + ") ready for install.");
             return db;
         }).then(function(db){
 
@@ -114,8 +114,8 @@
             ]).then(function([snapshots, thumbnails]){
                 data.forEach(function(doc){
                     if (!doc || !doc.preview) return;
-                    var snapsURL = `https://i.imgur.com/${doc.preview}.jpg`;
-                    var thumbURL = `https://i.imgur.com/${doc.preview}s.jpg`;
+                    var snapsURL = "https://i.imgur.com/"+doc.preview+".jpg";
+                    var thumbURL = "https://i.imgur.com/"+doc.preview+"s.jpg";
                     snapshots.add(snapsURL);
                     thumbnails.add(snapsURL);
                 });
@@ -142,7 +142,7 @@
         }).then(function(clients) {
             clients.forEach(function(client){
                 client.navigate(client.url);
-                console.log(`service worker unistalled from client "${client.url}"`);
+                console.log("service worker unistalled from client " + client.url);
             });
         });
     }

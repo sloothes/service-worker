@@ -8,22 +8,27 @@
 
     if ( serviceWorker ) {
 
-    //  Installlation of a service worker with  
-    //  null scope. Can be used for installations.
+    //  Installlation of fake scope service worker.
+    //  Used for one/first time installations ONLY.
+    //  After must go to the fake scope for update.
 
         serviceWorkerRegistration( serviceWorker, {
-            opt: {scope: ":0"},
+        //  works only as first time installation,
+        //  for updates must to go to "sloothes.com/:0.
+            opt: {scope: ":0"},  
             url: "/service-worker.js",
         });
 
         serviceWorkerRegistration( serviceWorker, {
+        //  works only as first time installation. 
+        //  for updates must to go to "/outfits/:1.
             opt: {scope: "/outfits/:1"},
             url: "/outfits/service-worker.js",
         });
 
 /*
-    //  A test of multi-install of the same service 
-    //  worker that is belong in an in an other folder.
+    //  Example multi-install of the same service 
+    //  worker that is belong in an other folder.
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/"},
             url: "/service-worker.js",
@@ -34,8 +39,9 @@
             url: "/service-worker.js",
         });
 */
+
 /*
-    //  Regular service worker with scope.
+    //  Service worker with regular scope.
         serviceWorkerRegistration( serviceWorker, {
             opt: {scope: "/outfits/"},
             url: "/outfits/service-worker.js",
